@@ -14,4 +14,11 @@ RSpec.configure do |config|
   config.order = :random
   config.warnings = true
   Kernel.srand config.seed
+
+  config.before(:all) do
+    @original_stdout = $stdout
+    @original_stderr = $stderr
+    $stdout = File.open(File::NULL, 'w')
+    $stderr = File.open(File::NULL, 'w')
+  end
 end

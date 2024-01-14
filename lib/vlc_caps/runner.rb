@@ -10,7 +10,6 @@ module VlcCaps
     def run
       capture_video
       convert_video_to_gif
-      open_file_browser
     end
 
     private
@@ -22,14 +21,15 @@ module VlcCaps
     end
 
     def stop_capture
-      sleep 5
+      sleep 3
       wait_for_user_to_finish_capturing
+      Thread.new { open_file_browser }
       gracefully_shutdown_vlc
     end
 
     def convert_video_to_gif = Terrapin::CommandLine.new('ffmpeg', "-i #{file_path} #{gif_file_path}").run
 
-    def open_file_browser = Terrapin::CommandLine.new('dolphin', ScreenCapture::SAVE_DIRECTORY).run
+    def open_file_browser = Terrapin::CommandLine.new('dolphin', "#{ScreenCapture::SAVE_DIRECTORY} &").run
 
     def file_name = @options.file_name
 

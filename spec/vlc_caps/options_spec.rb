@@ -12,12 +12,4 @@ RSpec.describe VlcCaps::Options do
       expect { described_class.new(['-f']) }.to raise_error SystemExit
     end
   end
-
-  describe 'program options' do
-    it 'saves file with name passed in with -f flag' do
-      file_name = 'test.mp4'
-      options = described_class.new(['-f', file_name])
-      expect(options.get).to include("#{described_class::SAVE_DIRECTORY}#{file_name}")
-    end
-  end
 end

@@ -16,20 +16,23 @@ module VlcCaps
 
     def capture_video
       threads = []
-      threads << Thread.new { ScreenCapture.new(file_name).get } << Thread.new { stop_capture }
+      threads << Thread.new {  start_capture } << Thread.new { stop_capture }
       threads.each(&:join)
     end
 
+    def start_capture = ScreenCapture.new(application: application, file_name: file_name).get
+
     def stop_capture
-      sleep 3
       wait_for_user_to_finish_capturing
-      Thread.new { open_file_browser }
       gracefully_shutdown_vlc
+      Thread.new { open_file_browser }
     end
 
     def convert_video_to_gif = Terrapin::CommandLine.new('ffmpeg', "-i #{file_path} #{gif_file_path}").run
 
     def open_file_browser = Terrapin::CommandLine.new('dolphin', "#{ScreenCapture::SAVE_DIRECTORY} &").run
+
+    def application = @options.application || :browser
 
     def file_name = @options.file_name
 
@@ -47,7 +50,7 @@ module VlcCaps
     end
 
     def gracefully_shutdown_vlc
-      puts 'Converting to gif...'
+      puts 'Shutting down VLC'
 
       client = TCPSocket.new('127.0.0.1', 8_082)
       client.send("quit\n", 0)

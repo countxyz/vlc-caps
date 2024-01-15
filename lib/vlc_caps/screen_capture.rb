@@ -2,11 +2,18 @@ module VlcCaps
   class ScreenCapture
     INTERFACE = '-I dummy screen://'
     OLDRC = '--extraintf oldrc --rc-host localhost:8082'
-    TRANSCODE = '{vcodec=h264,vb=800,fps=5,scale=1,acodec=none}'
-    SCREEN = { top: 1_080, width: 1_920, height: 1_440, fps: 30, caching: 300 }.freeze
+    TRANSCODE = '{vcodec=h264,vb=2048,acodec=none}'
+    VIDEO_OPTIONS = "--no-video :screen-fps=30 :screen-caching=300"
+    FPS = 30
+    CACHING = 300
+    SCREEN = {
+      browser: { left: 0, top: 1_080, width: 1_920, height: 1_440 },
+      terminal: { left: 2_270, top: 110, width: 1_850, height: 960 }
+    }.freeze
     SAVE_DIRECTORY = '/home/countxyz/Videos/screen_captures/'
 
-    def initialize(file_name)
+    def initialize(application:, file_name:)
+      @application = application
       @file_name = file_name
     end
 
@@ -14,18 +21,20 @@ module VlcCaps
 
     private
 
-    def vlc_options = "#{INTERFACE} #{OLDRC} #{screen_position} #{video_options} #{stream_output}"
+    def vlc_options = "#{INTERFACE} #{OLDRC} #{capture_location} #{VIDEO_OPTIONS} #{stream_output}"
 
-    def screen_position
-      "--screen-top=#{SCREEN[:top]} --screen-width=#{SCREEN[:width]} --screen-height=#{SCREEN[:height]}"
-    end
+    def capture_location = "#{screen_location} #{screen_size}"
 
-    def video_options = "--no-video :screen-fps=#{SCREEN[:fps]} :screen-caching=#{SCREEN[:caching]}"
+    def screen_location = "--screen-left=#{screen_application[:left]} --screen-top=#{screen_application[:top]}"
+
+    def screen_size = "--screen-width=#{screen_application[:width]} --screen-height=#{screen_application[:height]}"
 
     def stream_output = "--sout \"#transcode#{TRANSCODE}:duplicate#{duplicate}\""
 
     def duplicate = "{dst=std{access=file,mux=mp4,dst='#{file_path}'}}"
 
     def file_path = "#{SAVE_DIRECTORY}#{@file_name}"
+
+    def screen_application = SCREEN[@application]
   end
 end

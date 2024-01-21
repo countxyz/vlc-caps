@@ -8,7 +8,7 @@ module VlcCaps
     CACHING = 300
     SCREEN = {
       browser: { left: 0, top: 1_080, width: 1_920, height: 1_440 },
-      terminal: { left: 2_270, top: 110, width: 1_850, height: 960 }
+      terminal: { left: 2_270, top: 110, width: 1_890, height: 960 }
     }.freeze
     SAVE_DIRECTORY = '/home/countxyz/Videos/screen_captures/'
 

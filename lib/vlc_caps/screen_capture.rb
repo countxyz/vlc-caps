@@ -4,8 +4,6 @@ module VlcCaps
     OLDRC = '--extraintf oldrc --rc-host localhost:8082'
     TRANSCODE = '{vcodec=h264,vb=2048,acodec=none}'
     VIDEO_OPTIONS = "--no-video :screen-fps=30 :screen-caching=300"
-    FPS = 30
-    CACHING = 300
     SCREEN = {
       browser: { left: 0, top: 1_080, width: 1_920, height: 1_440 },
       terminal: { left: 2_270, top: 110, width: 1_890, height: 960 }

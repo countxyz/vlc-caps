@@ -5,7 +5,7 @@ module VlcCaps
     TRANSCODE = '{vcodec=h264,vb=2048,acodec=none}'
     VIDEO_OPTIONS = "--no-video :screen-fps=30 :screen-caching=300"
     SCREEN = {
-      browser: { left: 0, top: 1_080, width: 1_920, height: 1_440 },
+      browser: { left: 0, top: 1_120, width: 1_920, height: 1_350 },
       terminal: { left: 2_270, top: 110, width: 1_890, height: 960 }
     }.freeze
     SAVE_DIRECTORY = '/home/countxyz/Videos/screen_captures/'

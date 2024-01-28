@@ -16,7 +16,7 @@ module VlcCaps
 
     def capture_video
       threads = []
-      threads << Thread.new {  start_capture } << Thread.new { stop_capture }
+      threads << Thread.new { start_capture } << Thread.new { stop_capture }
       threads.each(&:join)
     end
 

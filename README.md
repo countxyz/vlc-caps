@@ -15,6 +15,10 @@ Usage: vlc_caps [ options ]
     -f, --file_name file_name        Name to save file as
     -h, --help                       Show this message
 ```
+
+## License
+
+This project is released under the [MIT license](LICENSE.md).
 ___
 
 Proudly made in NY!

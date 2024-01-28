@@ -10,7 +10,7 @@ module VlcCaps
 
     def parse(argv)
       OptionParser.new do |opts|
-        opts.banner = 'Usage: vlc_caps [ options ]'
+        opts.banner = 'Usage: vlc-caps [ options ]'
 
         opts.on('-a', '--application application', String, 'What to capture') do |application|
           @application = application.downcase.to_sym

@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
 require_relative '../lib/vlc_caps'
 
-runner = VlcCaps::Runner.new(ARGV)
-runner.run
+VlcCaps::Runner.new(ARGV).then { _1.run }
